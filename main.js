@@ -197,3 +197,12 @@ for (let i = 0; i < keys.length; i++) {
     divKeyboardLights.style.background = colorsInput.value;
   });  
   
+// click
+keys.forEach(function(elem) {
+    elem.onclick = function(event) {
+        keys.forEach(function(elem) {
+            elem.classList.remove('active');
+        });
+    this.classList.add('active');
+    }
+});
