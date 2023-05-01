@@ -21,7 +21,7 @@ const changeColor = wrapper.querySelector('.change-color');
 const keyboard = container.querySelector('.keyboard');
 const text = container.querySelector('.text');
 
-let divCircle = document.createElement('div');
+let divCircle = document.createElement('div');//toggle-circle
 divCircle.className = 'toggle-circle';
 nightMode.append(divCircle);
 
@@ -29,7 +29,7 @@ changeColor.insertAdjacentHTML('afterbegin', `<div class="colors">
                                                 <input class="colors-input" type="color" >
                                               </div>`);
 
-let divKeyboardLights = document.createElement('div');
+let divKeyboardLights = document.createElement('div');//keyboard-lights
 divKeyboardLights.className = 'keyboard-lights';
 keyboard.prepend(divKeyboardLights);
 
@@ -71,7 +71,73 @@ row3.firstElementChild.classList.add('caps-lock-key');
 row4.innerHTML = init(arrRow4);
 row4.lastElementChild.classList.add('shift-key');
 row4.firstElementChild.classList.add('shift-key');
+row4.lastElementChild.classList.add('shift-right');
+row4.firstElementChild.classList.add('shift-left');
 
 row5.innerHTML = init(arrRow5);
 row5.children[3].classList.add('space-key');
 
+//animation
+let keys = document.querySelectorAll(".keys");
+let spaceKey = document.querySelector(".space-key");
+let shiftLeft = document.querySelector(".shift-left");
+let shiftRight = document.querySelector(".shift-right");
+let capsLockKey = document.querySelector(".caps-lock-key");
+let body = document.querySelector("body");
+let colorsInput = document.querySelector(".colors-input");
+
+for (let i = 0; i < keys.length; i++) {
+    keys[i].setAttribute("keyname", keys[i].innerText);
+    keys[i].setAttribute("lowerCaseName", keys[i].innerText.toLowerCase());
+  }
+
+  window.addEventListener("keydown", function (e) {
+    for (let i = 0; i < keys.length; i++) {
+      if (
+        e.key == keys[i].getAttribute("keyname") ||
+        e.key == keys[i].getAttribute("lowerCaseName")
+      ) {
+        keys[i].classList.add("active");
+      }
+      if (e.code == "Space") {
+        spaceKey.classList.add("active");
+      }
+      if (e.code == "ShiftLeft") {
+        shiftRight.classList.remove("active");
+      }
+      if (e.code == "ShiftRight") {
+        shiftLeft.classList.remove("active");
+      }
+      if (e.code == "CapsLock") {
+        capsLockKey.classList.toggle("active");
+      }
+    }
+  });
+
+  window.addEventListener("keyup", function (e) {
+    for (let i = 0; i < keys.length; i++) {
+      if (
+        e.key == keys[i].getAttribute("keyname") ||
+        e.key == keys[i].getAttribute("lowerCaseName")
+      ) {
+        keys[i].classList.remove("active");
+        keys[i].classList.add("remove");
+      }
+      if (e.code == "Space") {
+        spaceKey.classList.remove("active");
+        spaceKey.classList.add("remove");
+      }
+      if (e.code == "ShiftLeft") {
+        shiftRight.classList.remove("active");
+        shiftRight.classList.remove("remove");
+      }
+      if (e.code == "ShiftRight") {
+        shiftLeft.classList.remove("active");
+        shiftLeft.classList.remove("remove");
+      }
+      setTimeout(() => {
+        keys[i].classList.remove("remove");
+      }, 200);
+    }
+  });
+  
