@@ -76,12 +76,20 @@ row4.firstElementChild.classList.add('shift-left');
 
 row5.innerHTML = init(arrRow5);
 row5.children[3].classList.add('space-key');
+row5.children[2].classList.add('alt-left');
+row5.children[4].classList.add('alt-right');
+row5.lastElementChild.classList.add('control-right');
+row5.firstElementChild.classList.add('control-left');
 
-//animation
+//PRINT CAPS
 let keys = document.querySelectorAll(".keys");
 let spaceKey = document.querySelector(".space-key");
 let shiftLeft = document.querySelector(".shift-left");
 let shiftRight = document.querySelector(".shift-right");
+let controlLeft = document.querySelector(".control-left");
+let controlRight = document.querySelector(".control-right");
+let altLeft = document.querySelector(".alt-left");
+let altRight = document.querySelector(".alt-right");
 let capsLockKey = document.querySelector(".caps-lock-key");
 let body = document.querySelector("body");
 let colorsInput = document.querySelector(".colors-input");
@@ -107,6 +115,18 @@ for (let i = 0; i < keys.length; i++) {
       }
       if (e.code == "ShiftRight") {
         shiftLeft.classList.remove("active");
+      }
+      if (e.code == "AltLeft") {
+        altRight.classList.remove("active");
+      }
+      if (e.code == "AltRight") {
+        altLeft.classList.remove("active");
+      }
+      if (e.code == "ControlLeft") {
+        controlRight.classList.remove("active");
+      }
+      if (e.code == "ControlRight") {
+        controlLeft.classList.remove("active");
       }
       if (e.code == "CapsLock") {
         capsLockKey.classList.toggle("active");
@@ -135,9 +155,45 @@ for (let i = 0; i < keys.length; i++) {
         shiftLeft.classList.remove("active");
         shiftLeft.classList.remove("remove");
       }
+      if (e.code == "AltLeft") {
+        altRight.classList.remove("active");
+        altRight.classList.remove("remove");
+      }
+      if (e.code == "AltRight") {
+        altLeft.classList.remove("active");
+        altLeft.classList.remove("remove");
+      }
+      if (e.code == "ControlLeft") {
+        controlRight.classList.remove("active");
+        controlRight.classList.remove("remove");
+      }
+      if (e.code == "ControlRight") {
+        controlLeft.classList.remove("active");
+        controlLeft.classList.remove("remove");
+      }
       setTimeout(() => {
         keys[i].classList.remove("remove");
       }, 200);
     }
   });
+
+  //ANIMATION
+  nightMode.addEventListener("click", function () {
+    divCircle.classList.toggle("active");
+    body.classList.toggle("active");
+    nightMode.classList.toggle("active");
+    keyboard.classList.toggle("active");
+    text.classList.toggle("active");
+    changeColor.classList.toggle("active");
+    for (let i = 0; i < keys.length; i++) {
+      keys[i].classList.toggle("keys_night");
+    }
+  });
+  
+  colorsInput.addEventListener("input", function () {
+    for (let i = 0; i < keys.length; i++) {
+      keys[i].style.color = colorsInput.value;
+    }
+    divKeyboardLights.style.background = colorsInput.value;
+  });  
   
